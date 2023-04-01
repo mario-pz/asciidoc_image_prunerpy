@@ -21,7 +21,8 @@ The Goal of this project was to not waste 10 hours manually remove image unused 
 │   └── assets
 │       └── should-move-to-unused-2.png
 ├── demo.asciidoc
-└── main.py====
+└── main.py
+====
 
 [source, shell]
 $ make craft
