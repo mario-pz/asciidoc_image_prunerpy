@@ -5,39 +5,36 @@ The Goal of this project was to not waste 10 hours manually remove image unused 
 
 = Presentation
 
-[shell]
-====
-$  tree 
+[source, shell]
+$ tree
 .
 ├── Makefile
 ├── demo-1
-│   ├── assets
-│   │   ├── should-move-to-unused.png
-│   │   └── yes.png (test.asciidoc is using this image)
-│   └── test.asciidoc
+│ ├── assets
+│ │ ├── should-move-to-unused.png
+│ │ └── yes.png (test.asciidoc is using this image)
+│ └── test.asciidoc
 ├── demo-2
-│   └── assets
-│       └── should-move-to-unused.png
+│ └── assets
+│ └── should-move-to-unused.png
 ├── main.py
 ====
 
-[shell]
-====
-$  ls
-Makefile  demo-1  demo-2  main.py
-$  make craft
+[source, shell]
+$ ls
+Makefile demo-1 demo-2 main.py
+$ make craft
 mkdir -p demo-1/assets demo-2/assets
 touch ./demo-1/assets/yes.png
 touch ./demo-1/assets/should-move-to-unused.png
 touch ./demo-2/assets/should-move-to-unused.png
-$  make      
+$ make
 python3 main.py
 ./demo-1/assets/should-move-to-unused.png is unused
 ./demo-2/assets/should-move-to-unused.png is unused
 
-$  make clean
+$ make clean
 rm -rf unused-images
-
 ====
 
 = Notes
