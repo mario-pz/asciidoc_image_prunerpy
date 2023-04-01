@@ -3,7 +3,8 @@ from os.path import isfile, join, isdir
 from typing import List, Set
 from re import findall, MULTILINE
 from shutil import move
-from os import path
+from os import path, walk
+from sys import argv
 
 
 def filter_unused_images(assets_dir: str, tags: List[str]) -> List[str]:
@@ -111,26 +112,33 @@ def move_to_unused_dir(
             print(f"{source_path} is unused")
 
 
-def main() -> None:
-    parent_directory: str = "."
+def main(parent_directory: str) -> None:
     unused_images_dir = join(parent_directory, "unused-images")
     makedirs(unused_images_dir, exist_ok=True)
 
-    for subdir in listdir(parent_directory):
-        subdir_path = join(parent_directory, subdir)
-        if isdir(subdir_path) and subdir != "unused-images":
-            assets_dir_path = join(subdir_path, "assets")
-            if isdir(assets_dir_path):
-                ascii_docs = find_asciidoc_files(subdir_path)
-                if ascii_docs is not None:
-                    tags = search_ascii_tags(ascii_docs)
-                    filtered_images = filter_unused_images(
-                        assets_dir_path, tags
-                    )
-                    move_to_unused_dir(
-                        assets_dir_path, filtered_images, unused_images_dir
-                    )
+    for root, dirs, _ in walk(parent_directory):
+        if "unused-images" in dirs:
+            dirs.remove("unused-images")
+
+        if ".git" in dirs:
+            dirs.remove(".git")
+
+        print("Browsing:", root)
+        assets_dir_path = join(root, "assets")
+        if isdir(assets_dir_path):
+            ascii_docs = find_asciidoc_files(root)
+            if ascii_docs is not None:
+                tags = search_ascii_tags(ascii_docs)
+                filtered_images = filter_unused_images(assets_dir_path, tags)
+                move_to_unused_dir(
+                    assets_dir_path, filtered_images, unused_images_dir
+                )
 
 
 if __name__ == "__main__":
-    main()
+    if len(argv) > 1:
+        start_directory: str = argv[1]
+    else:
+        start_directory: str = "."
+
+    main(start_directory)

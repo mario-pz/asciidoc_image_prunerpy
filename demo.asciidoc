@@ -1,0 +1,13 @@
+= Demo AsciiDoc
+
+This is a sample AsciiDoc document.
+
+== Including an Image
+
+Here's an image from the `assets` directory:
+
+image::assets/yes.png[]
+
+== Conclusion
+
+That's it for this demo AsciiDoc.
