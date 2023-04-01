@@ -1,0 +1,48 @@
+= Unused Image Detector for AsciiDoc Projects
+
+= Goal
+The Goal of this project was to not waste 10 hours manually remove image unused images in my studies.
+
+= Presentation
+
+[shell]
+====
+$  tree 
+.
+├── Makefile
+├── demo-1
+│   ├── assets
+│   │   ├── should-move-to-unused.png
+│   │   └── yes.png (test.asciidoc is using this image)
+│   └── test.asciidoc
+├── demo-2
+│   └── assets
+│       └── should-move-to-unused.png
+├── main.py
+====
+
+[shell]
+====
+$  ls
+Makefile  demo-1  demo-2  main.py
+$  make craft
+mkdir -p demo-1/assets demo-2/assets
+touch ./demo-1/assets/yes.png
+touch ./demo-1/assets/should-move-to-unused.png
+touch ./demo-2/assets/should-move-to-unused.png
+$  make      
+python3 main.py
+./demo-1/assets/should-move-to-unused.png is unused
+./demo-2/assets/should-move-to-unused.png is unused
+
+$  make clean
+rm -rf unused-images
+
+====
+
+= Notes
+* The script is hardcoded to look for assets directory in each sub.
+* The unused-dir is intentional in case you need them.
+
+= License 
+Script is signed under LGPLv3

@@ -1,0 +1,8 @@
+= Demo AsciiDoc File
+
+This is a paragraph of text.
+
+image::yes.png[]
+
+This is another paragraph of text.
+
