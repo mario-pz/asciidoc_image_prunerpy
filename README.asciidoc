@@ -22,7 +22,7 @@ The Goal of this project was to not waste 10 hours manually remove image unused 
 │       └── should-move-to-unused-2.png
 ├── demo.asciidoc
 └── main.py
-====
+
 
 [source, shell]
 $ make craft
@@ -46,7 +46,6 @@ Browsing: ./demo-2
 Browsing: ./demo-2/assets
 $ make clean
 rm -rf unused-images demo-1 demo-2
-====
 
 = Notes
 * The script is hardcoded to look for assets directory in each sub.
